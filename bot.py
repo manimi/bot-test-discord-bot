@@ -12,4 +12,4 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
-bot.run(process.env.'NDYzNzAwMjg2MjU5NTkzMjE2.Dh0PFg.5ZG07mLlOhNI7lZQXDa4j8OIpY8')
+bot.run(bot_token)
