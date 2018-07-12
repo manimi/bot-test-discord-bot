@@ -10,7 +10,7 @@ import simplejson as json
 from oauth2client.service_account import ServiceAccountCredentials
 
 #GETTING API KEYS FROM HEROKU
-api = os.environ["RIOT_KEY"]
+#api = os.environ["RIOT_KEY"]
 wu_key = os.environ['WU_API']
 owm = os.environ['open_weather']
 img_api = os.environ['img_api']
