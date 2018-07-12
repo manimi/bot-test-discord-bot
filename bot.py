@@ -11,10 +11,10 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 #GETTING API KEYS FROM HEROKU
 #api = os.environ["RIOT_KEY"]
-wu_key = os.environ['WU_API']
-owm = os.environ['open_weather']
-img_api = os.environ['img_api']
-apiai_token = os.environ['api_ai']
+#wu_key = os.environ['WU_API']
+#owm = os.environ['open_weather']
+#img_api = os.environ['img_api']
+#apiai_token = os.environ['api_ai']
 bot_token = os.environ['BOT_TOKEN']
 An = Pymoe.Anilist()
 
