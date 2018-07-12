@@ -8,6 +8,7 @@ import gspread
 import requests as rq
 import simplejson as json
 from oauth2client.service_account import ServiceAccountCredentials
+from PIL import Image, ImageFilter
 
 #GETTING API KEYS FROM HEROKU
 #api = os.environ["RIOT_KEY"]
@@ -38,5 +39,24 @@ async def logout(ctx):
         await bot.logout()
     else:
         await bot.say("Can not restart bot because you are not the creator")
+        
+@bot.command(pass_context=True)
+async def enlight(ctx):
+    im = Image.open( 'picture.png' )
+    #Display image
+    im.show()
+
+    #Applying a filter to the image
+    im_sharp = im.filter( ImageFilter.SHARPEN )
+    #Saving the filtered image to a new file
+    im_sharp.save( 'image_sharpened.jpg', 'JPEG' )
+
+    #Splitting the image into its respective bands, i.e. Red, Green,
+    #and Blue for RGB
+    r,g,b = im_sharp.split()
+
+    #Viewing EXIF data embedded in image
+    exif_data = im._getexif()
+    exif_data
 
 bot.run(bot_token)
