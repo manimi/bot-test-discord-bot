@@ -53,7 +53,8 @@ async def check(ctx):
 @bot.command(pass_context=True)
 async def update(ctx):
     g = github.Github()
-    repo = g.get_repo('manimi/bot-test-discord-bot')
+    user = g.get_user()
+    repo = user.get_repo('bot-test-discord-bot')
     #for repoo in g.get_user().get_repos():
     print(repo.name)
     file = repo.get_contents('/update.txt')
