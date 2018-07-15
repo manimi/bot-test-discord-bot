@@ -48,6 +48,6 @@ async def update(ctx):
     print(repo.name)
     file = repo.get_contents('/update.txt')
     print(file.name)
-    repo.create_file('/file.txt', 'Update', 'Good shit')
+    repo.create_file('manimi/bot-test-discord-bot', 'Update', 'Good shit')
 
 bot.run(bot_token)
