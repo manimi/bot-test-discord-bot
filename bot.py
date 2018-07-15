@@ -42,7 +42,7 @@ async def logout(ctx):
         
 @bot.command(pass_context=True)
 async def update(ctx):
-    g = github.Github(bot_token)
+    g = github.Github(login_or_token=bot_token)
     for repo in g.get_user().get_repos():
         print(repo.name)
         #repo = g.get_user().get_repo("bot-test-discord-bot")
