@@ -58,9 +58,9 @@ async def update(ctx):
     repo = user.get_repo('bot-test-discord-bot')
     #for repoo in g.get_user().get_repos():
     print(repo.name)
-    file = repo.get_contents('/update.txt')
+    file = repo.get_contents('/update.json')
     print(file.name)
     #repo.create_file('manimi/bot-test-discord-bot', 'Update', 'Good shit')
-    repo.create_file('/test', 'commit message', 'banana')
+    repo.update_file('/update.json', 'Some Update', 'Message has been updated.', file.sha)
 
 bot.run(bot_token)
