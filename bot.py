@@ -39,5 +39,12 @@ async def logout(ctx):
         await bot.logout()
     else:
         await bot.say("Can not restart bot because you are not the creator")
+        
+@bot.command(pass_context=True)
+async def update(ctx):
+    g = github.Github(bot_token)
+    repo = g.get_user().get_repo("bot-test-discord-bot")
+    file = repo.get_file_contents("/update.json")
+    repo.update_file("/update.json", "I commited update.", "update commited.", file.sha)
 
 bot.run(bot_token)
