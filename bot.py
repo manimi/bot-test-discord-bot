@@ -59,6 +59,6 @@ async def update(ctx):
     file = repo.get_contents('/update.txt')
     print(file.name)
     #repo.create_file('manimi/bot-test-discord-bot', 'Update', 'Good shit')
-    repo.create_file('/test', 'commit message', base64.b64encode('banana'))
+    repo.create_file('/test', 'commit message', b'banana')
 
 bot.run(bot_token)
