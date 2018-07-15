@@ -8,6 +8,7 @@ import gspread
 import requests as rq
 import simplejson as json
 import github
+import json
 from oauth2client.service_account import ServiceAccountCredentials
 
 #GETTING API KEYS FROM HEROKU
@@ -62,5 +63,31 @@ async def update(ctx):
     print(file.name)
     #repo.create_file('manimi/bot-test-discord-bot', 'Update', 'Good shit')
     repo.update_file('/update.json', 'Some Update', 'Message has been updated.', file.sha)
+    
+@bot.command(pass_context=True)
+async def attempt(ctx):
+    g = github.Github(token)
+    user = g.get_user()
+    repo = user.get_repo('bot-test-discord-bot')
+    #for repoo in g.get_user().get_repos():
+    print(repo.name)
+    file = repo.get_contents('/update.json')
+    print(file.name)
+    #repo.create_file('manimi/bot-test-discord-bot', 'Update', 'Good shit')
+    if (file):
+        try:
+            users = load(file)
+
+            time_diff = (datetime.datetime.utcnow() - epoch).total_seconds() - users[user_id]['xp_time']
+            if time_diff >= 120:
+                users[user_id]['xp'] += xp
+                users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
+                dump(users, file, protocol=0)
+        except KeyError:
+            users = load(file)
+            users[user_id] = {}
+            users[user_id]['xp'] = xp
+            users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
+            dump(users, file, protocol=0)
 
 bot.run(bot_token)
