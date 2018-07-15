@@ -7,4 +7,3 @@ apiai
 bs4
 gspread
 oauth2client
-Pillow
