@@ -7,8 +7,8 @@ import apiai
 import gspread
 import requests as rq
 import simplejson as json
-from oauth2client.service_account import ServiceAccountCredentials
 import github
+from oauth2client.service_account import ServiceAccountCredentials
 
 #GETTING API KEYS FROM HEROKU
 #api = os.environ["RIOT_KEY"]
