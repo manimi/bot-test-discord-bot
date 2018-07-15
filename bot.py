@@ -41,6 +41,16 @@ async def logout(ctx):
         await bot.say("Can not restart bot because you are not the creator")
         
 @bot.command(pass_context=True)
+async def check(ctx):
+    g = github.Github()
+    repo = g.get_repo('manimi/bot-test-discord-bot')
+    #for repoo in g.get_user().get_repos():
+    print(repo.name)
+    file = repo.get_contents('/update.txt')
+    print(file.name)
+    #repo.create_file('manimi/bot-test-discord-bot', 'Update', 'Good shit')
+    
+@bot.command(pass_context=True)
 async def update(ctx):
     g = github.Github()
     repo = g.get_repo('manimi/bot-test-discord-bot')
@@ -49,5 +59,6 @@ async def update(ctx):
     file = repo.get_contents('/update.txt')
     print(file.name)
     #repo.create_file('manimi/bot-test-discord-bot', 'Update', 'Good shit')
+    repo.create_file('/test', 'commit message', 'banana')
 
 bot.run(bot_token)
