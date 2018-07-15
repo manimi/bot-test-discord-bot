@@ -8,7 +8,7 @@ import gspread
 import requests as rq
 import simplejson as json
 from oauth2client.service_account import ServiceAccountCredentials
-from Pillow import Image
+import github
 
 #GETTING API KEYS FROM HEROKU
 #api = os.environ["RIOT_KEY"]
@@ -39,14 +39,5 @@ async def logout(ctx):
         await bot.logout()
     else:
         await bot.say("Can not restart bot because you are not the creator")
-
-@bot.command(pass_context=True)
-async def enlight(ctx):
-    providedimage = Image.open (ctx.message.attachments)
-    fire = Image.open('picture.png')
-    burninate = Image.new("RGBA", providedimage.size)
-    burninate = Image.alpha_composite(burninate, fire)
-    burninate.save("burninate.png")
-    await bot.send_file(ctx.message.channel, "burninate.png")
 
 bot.run(bot_token)
