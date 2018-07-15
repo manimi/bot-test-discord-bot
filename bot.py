@@ -47,6 +47,6 @@ async def update(ctx):
     #for repoo in g.get_user().get_repos():
     print(repo.name)
     file = repo.get_contents('/update.json')
-    #repo.update_file(file.path, "commit", file.content, file.sha)
+    repo.update_file(file.path, 'commit', file.content, file.sha)
 
 bot.run(bot_token)
