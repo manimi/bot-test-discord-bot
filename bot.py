@@ -43,8 +43,10 @@ async def logout(ctx):
 @bot.command(pass_context=True)
 async def update(ctx):
     g = github.Github(bot_token)
-    repo = g.get_user().get_repo("bot-test-discord-bot")
-    file = repo.get_file_contents("/update.json")
-    repo.update_file("/update.json", "I commited update.", "update commited.", file.sha)
+    for repo in g.get_user().get_repos():
+        print(repo.name)
+        #repo = g.get_user().get_repo("bot-test-discord-bot")
+        #file = repo.get_file_contents("/update.json")
+        #repo.update_file("/update.json", "I commited update.", "update commited.", file.sha)
 
 bot.run(bot_token)
