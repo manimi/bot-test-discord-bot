@@ -7,3 +7,4 @@ apiai
 bs4
 gspread
 oauth2client
+pygithub
