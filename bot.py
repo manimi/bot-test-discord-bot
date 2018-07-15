@@ -45,6 +45,6 @@ async def update(ctx):
     g = github.Github()
     repo = g.get_repo('manimi/bot-test-discord-bot')
     shaa = repo.get_contents('/update.json').sha
-    repo.update_file('/update.json', 'commit comments', 'updated message', shaa)
+    repo.update_file('/update.json', 'commit', 'updated', shaa)
 
 bot.run(bot_token)
