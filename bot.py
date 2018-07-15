@@ -17,6 +17,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 #img_api = os.environ['img_api']
 #apiai_token = os.environ['api_ai']
 bot_token = os.environ['BOT_TOKEN']
+token = os.environ['TOKEN']
 An = Pymoe.Anilist()
 
 bot = commands.Bot(command_prefix='dd!')
