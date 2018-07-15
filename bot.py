@@ -44,7 +44,9 @@ async def logout(ctx):
 async def update(ctx):
     g = github.Github()
     repo = g.get_repo('manimi/bot-test-discord-bot')
+    #for repoo in g.get_user().get_repos():
+    print(repo.name)
     #sha = repo.get_contents('/update.json').sha
-    repo.update_file('/update.json', 'commit', 'updated', 'h')
+    #repo.update_file('/update.json', 'commit', 'updated', 'h')
 
 bot.run(bot_token)
