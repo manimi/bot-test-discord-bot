@@ -76,18 +76,18 @@ async def attempt(ctx):
     #repo.create_file('manimi/bot-test-discord-bot', 'Update', 'Good shit')
     if (file):
         try:
-            users = load(file)
+            users = github.load(file)
 
             time_diff = (datetime.datetime.utcnow() - epoch).total_seconds() - users[user_id]['xp_time']
             if time_diff >= 120:
                 users[user_id]['xp'] += xp
                 users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
-                dump(users, file, protocol=0)
+                github.dump(users, file, protocol=0)
         except KeyError:
             users = load(file)
             users[user_id] = {}
             users[user_id]['xp'] = xp
             users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
-            dump(users, file, protocol=0)
+            github.dump(users, file, protocol=0)
 
 bot.run(bot_token)
