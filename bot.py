@@ -80,8 +80,8 @@ async def attempt(ctx):
     #repo.create_file('manimi/bot-test-discord-bot', 'Update', 'Good shit')
     await bot.say("You tried!")
     if (file):
-        with repo.get_contents('/update.json') as fp:
-            users = json.load(fp)
+        fp = repo.get_contents('/update.json')
+        users = json.load(fp)
 
         time_diff = (datetime.datetime.utcnow() - epoch).total_seconds() - users[user_id]['xp_time']
         if time_diff >= 120:
@@ -89,7 +89,6 @@ async def attempt(ctx):
             users[user_id] = {user_id: {}}
             users[user_id]['xp'] += xp
             users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
-            with repo.get_contents('/update.json') as fp:
-                g.dump(users, fp, protocol=0)
+            json.dump(users, fp, sort_keys=True, indent=4)
             
 bot.run(bot_token)
