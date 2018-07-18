@@ -80,7 +80,7 @@ async def attempt(ctx):
     print(file.name)
     #repo.create_file('manimi/bot-test-discord-bot', 'Update', 'Good shit')
     await bot.say("You tried!")
-    filename = raw_input("update.json")
+    filename = input("update.json")
     if (file):
         fp = open(filename)
         users = json.load(fp)
