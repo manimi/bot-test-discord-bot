@@ -66,6 +66,7 @@ async def update(ctx):
     print(file.name)
     #repo.create_file('manimi/bot-test-discord-bot', 'Update', 'Good shit')
     repo.update_file('/update.json', 'Some Update', 'Message has been updated.', file.sha)
+    await bot.say("Message has been updated!")
     
 @bot.command(pass_context=True)
 async def attempt(ctx):
@@ -77,20 +78,17 @@ async def attempt(ctx):
     file = repo.get_contents('/update.json')
     print(file.name)
     #repo.create_file('manimi/bot-test-discord-bot', 'Update', 'Good shit')
+    await bot.say("You tried!")
     if (file):
-        try:
-            users = g.load(file)
+        with open('update.json', 'r') as fp:
+            users = json.load(fp)
 
-            time_diff = (datetime.datetime.utcnow() - epoch).total_seconds() - users[user_id]['xp_time']
-            if time_diff >= 120:
-                users[user_id]['xp'] += xp
-                users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
-                g.dump(users, file, protocol=0)
-        except KeyError:
-            users = g.load(file)
-            users[user_id] = {}
-            users[user_id]['xp'] = xp
+        time_diff = (datetime.datetime.utcnow() - epoch).total_seconds() - users[user_id]['xp_time']
+        if time_diff >= 120:
+            users = {}
+            users[user_id] = {user_id: {}}
+            users[user_id]['xp'] += xp
             users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
-            g.dump(users, file, protocol=0)
-
+            g.dump(users, fp, protocol=0)
+            
 bot.run(bot_token)
