@@ -2,11 +2,12 @@ import discord
 from discord.ext import commands
 import Pymoe
 import datetime
+import base64
 import os
 import random
 import apiai
 import gspread
-import requests as rq
+import requests
 import simplejson as json
 import github
 import json
@@ -79,8 +80,9 @@ async def attempt(ctx):
     print(file.name)
     #repo.create_file('manimi/bot-test-discord-bot', 'Update', 'Good shit')
     await bot.say("You tried!")
+    filename = raw_input("update.json")
     if (file):
-        fp = repo.get_contents('/update.json')
+        fp = open(filename)
         users = json.load(fp)
 
         time_diff = (datetime.datetime.utcnow() - epoch).total_seconds() - users[user_id]['xp_time']
