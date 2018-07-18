@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import Pymoe
+import datetime
 import os
 import random
 import apiai
@@ -22,6 +23,8 @@ token = os.environ['TOKEN']
 An = Pymoe.Anilist()
 
 bot = commands.Bot(command_prefix='dd!')
+
+epoch = datetime.datetime.utcfromtimestamp(0)
 
 @bot.event
 async def on_ready():
