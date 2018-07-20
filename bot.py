@@ -92,5 +92,21 @@ async def attempt(ctx):
             users[user_id]['xp'] += xp
             users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
             json.dump(users, fp, sort_keys=True, indent=4)
+          
+@bot.command(pass_context=True)
+@commands.cooldown(1, 60*60*12, commands.BucketType.user)
+async def cooldowncheck(ctx):
+    await bot.say("Check the cooldown now!")
+    
+@bot.event
+async def on_command_error(error, ctx):
+    channel = ctx.message.channel
+    if isinstance(error, commands.CommandOnCooldown):
+        if (error.retry_after >= 3600):
+            await bot.send_message(channel, "This command is on cooldown. Try again in {} hours.".format(error.retry_after/3600))
+        elif ((error.retry_after >= 60)&(error.retry_after < 3600)):
+            await bot.send_message(channel, "This command is on cooldown. Try again in {} minutes.".format(error.retry_after/60))
+        elif (error.retry_after < 60):
+            await bot.send_message(channel, "This command is on cooldown. Try again in {} seconds.".format(error.retry_after))
             
 bot.run(bot_token)
