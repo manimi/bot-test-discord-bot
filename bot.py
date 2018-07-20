@@ -94,8 +94,18 @@ async def attempt(ctx):
             json.dump(users, fp, sort_keys=True, indent=4)
           
 @bot.command(pass_context=True)
-@commands.cooldown(1, 60*60*12, commands.BucketType.user)
-async def cooldowncheck(ctx):
+@commands.cooldown(1, 60*60*2, commands.BucketType.user)
+async def cooldownhours(ctx):
+    await bot.say("Check the cooldown now!")
+    
+@bot.command(pass_context=True)
+@commands.cooldown(1, 60*60, commands.BucketType.user)
+async def cooldownminutes(ctx):
+    await bot.say("Check the cooldown now!")
+    
+@bot.command(pass_context=True)
+@commands.cooldown(1, 60, commands.BucketType.user)
+async def cooldownseconds(ctx):
     await bot.say("Check the cooldown now!")
     
 @bot.event
