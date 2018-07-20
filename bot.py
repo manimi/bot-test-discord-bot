@@ -92,6 +92,11 @@ async def attempt(ctx):
             users[user_id]['xp'] += xp
             users[user_id]['xp_time'] = (datetime.datetime.utcnow() - epoch).total_seconds()
             json.dump(users, fp, sort_keys=True, indent=4)
+            
+@bot.command(pass_context=True)
+@commands.cooldown(1, 60*60*2, commands.BucketType.user)
+async def cooldown(ctx):
+    await bot.say("Check the cooldown now!")
           
 @bot.command(pass_context=True)
 @commands.cooldown(1, 60*60*2, commands.BucketType.user)
@@ -115,11 +120,14 @@ async def on_command_error(error, ctx):
         hours = str(error.retry_after/3600)
         minutes = str(error.retry_after/60)
         seconds = str(error.retry_after)
-        if (error.retry_after >= 3600):
-            await bot.send_message(channel, "This command is on cooldown. Try again in {} hours.".format(hours[0:2]))
-        elif ((error.retry_after >= 60)&(error.retry_after < 3600)):
-            await bot.send_message(channel, "This command is on cooldown. Try again in {} minutes.".format(minutes[0:2]))
-        elif (error.retry_after < 60):
-            await bot.send_message(channel, "This command is on cooldown. Try again in {} seconds.".format(seconds[0:2]))
+        if (ctx.message.content == dd!cooldown):
+            await bot.send_message(channel, "This command is on cooldown. Try again in {} hours = {} minutes = {} seconds.".format(hours,minutes,seconds))
+        else:
+            if (error.retry_after >= 3600):
+                await bot.send_message(channel, "This command is on cooldown. Try again in {} hours.".format(hours[0:2]))
+            elif ((error.retry_after >= 60)&(error.retry_after < 3600)):
+                await bot.send_message(channel, "This command is on cooldown. Try again in {} minutes.".format(minutes[0:2]))
+            elif (error.retry_after < 60):
+                await bot.send_message(channel, "This command is on cooldown. Try again in {} seconds.".format(seconds[0:2]))
             
 bot.run(bot_token)
