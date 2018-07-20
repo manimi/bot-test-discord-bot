@@ -121,7 +121,7 @@ async def on_command_error(error, ctx):
         minutes = str(error.retry_after/60)
         secondss = str(error.retry_after)
         if (ctx.message.content == 'dd!cooldown'):
-            await bot.send_message(channel, "This command is on cooldown. Try again in {}".format(datetime.timedelta(seconds=666)))
+            await bot.send_message(channel, "This command is on cooldown. Try again in {}".format(datetime.timedelta(seconds=int(error.retry_after))))
         else:
             if (error.retry_after >= 3600):
                 await bot.send_message(channel, "This command is on cooldown. Try again in {} hours.".format(hours[0:2]))
