@@ -119,9 +119,9 @@ async def cooldownseconds(ctx):
     await bot.say("Check the cooldown now!")
     
 @bot.command(pass_context=True)
-async def testimage(ctx):
+async def testimage(ctx, url):
     async with aiohttp.ClientSession() as session:
-        async with session.get('https://www.srb2.org/media/') as resp:
+        async with session.get(url) as resp:
             buffer = BytesIO(await resp.read())
 
     await bot.send_file(ctx.message.channel, fp=buffer, filename="something.png")
