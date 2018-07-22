@@ -120,11 +120,13 @@ async def cooldownseconds(ctx):
     
 @bot.command(pass_context=True)
 async def testimage(ctx, url):
+    theurl = 'https://www.srb2.org/wp-content/uploads/{}'.format(url)
+    urlname = '{}.png'.format(url)
     async with aiohttp.ClientSession() as session:
-        async with session.get(url) as resp:
+        async with session.get(theurl) as resp:
             buffer = BytesIO(await resp.read())
 
-    await bot.send_file(ctx.message.channel, fp=buffer, filename="something.png")
+    await bot.send_file(ctx.message.channel, fp=buffer, filename=urlname)
     
 @bot.event
 async def on_command_error(error, ctx):
