@@ -11,6 +11,8 @@ import requests
 import simplejson as json
 import github
 import json
+import aiohttp
+from io import BytesIO
 from oauth2client.service_account import ServiceAccountCredentials
 
 #GETTING API KEYS FROM HEROKU
@@ -26,6 +28,9 @@ An = Pymoe.Anilist()
 bot = commands.Bot(command_prefix='dd!')
 
 epoch = datetime.datetime.utcfromtimestamp(0)
+
+def __init__(self, bot):
+    self.session = aiohttp.ClientSession(loop=bot.loop)
 
 @bot.event
 async def on_ready():
@@ -112,6 +117,14 @@ async def cooldownminutes(ctx):
 @commands.cooldown(1, 60, commands.BucketType.user)
 async def cooldownseconds(ctx):
     await bot.say("Check the cooldown now!")
+    
+@bot.command(pass_context=True)
+async def testimage(ctx):
+    async with aiohttp.ClientSession() as session:
+        async with session.get('https://www.srb2.org/media/') as resp:
+            buffer = BytesIO(await resp.read())
+
+    await bot.send_file(ctx.message.channel, fp=buffer, filename="something.png")
     
 @bot.event
 async def on_command_error(error, ctx):
