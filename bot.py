@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands import BucketType
 import Pymoe
 import datetime
 import base64
@@ -127,6 +128,27 @@ async def srb2image(ctx, url):
             buffer = BytesIO(await resp.read())
 
     await bot.send_file(ctx.message.channel, fp=buffer, filename=urlname)
+    
+@bot.command(pass_context=True)
+async def scramble(ctx):
+    async with session.post("http://watchout4snakes.com/wo4snakes/Random/RandomWord") as post:
+        assert isinstance(post, aiohttp.ClientResponse)
+        word = await post.read()
+    word = word.decode()
+    print(word)
+    scrambled = random.sample(word, len(word))
+    scrambled = ''.join(scrambled)
+    await bot.say(f"The word scramble is: `{scrambled}`! You have 30 seconds to solve...")
+
+    def check(m):
+        return m.content == word and m.channel == ctx.channel
+
+    try:
+        msg = await bot.wait_for_message(timeout=30, content="message", check=check)
+        if msg:
+            await bot.say(f"Nice job! {msg.author.name} solved the scramble! The word was `{word}`!")
+    except asyncio.TimeoutError:
+        await bot.say(f"Oops! Nobody solved it. The word was `{word}`!")
     
 @bot.event
 async def on_command_error(error, ctx):
