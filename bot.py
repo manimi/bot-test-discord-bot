@@ -119,8 +119,8 @@ async def cooldownseconds(ctx):
     await bot.say("Check the cooldown now!")
     
 @bot.command(pass_context=True)
-async def testimage(ctx, url):
-    theurl = 'https://www.srb2.org/wp-content/uploads/{}'.format(url)
+async def srb2image(ctx, url):
+    theurl = 'https://www.srb2.org/wp-content/uploads/{}.png'.format(url)
     urlname = '{}.png'.format(url)
     async with aiohttp.ClientSession() as session:
         async with session.get(theurl) as resp:
