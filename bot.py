@@ -207,11 +207,11 @@ async def gem(ctx):
             avatar = Image.open(av_bytes)
             
     dest = (5, 5)
-    size = avatar.size
+    size = gem.size
     mask = Image.new('L', size, 0)
     draw = ImageDraw.Draw(mask)
     draw.ellipse((0, 0) + size, fill=255)
-    av = ImageOps.fit(avatar, mask.size, centering=(0.5, 0.5))
+    av = ImageOps.fit(gem, mask.size, centering=(0.5, 0.5))
     av.putalpha(mask)
 
     face_1 = av.resize((78, 78), Image.LANCZOS)
@@ -219,7 +219,7 @@ async def gem(ctx):
 
     avatar.paste(face_1, dest, face_1)
     
-    copy = gem.copy()
+    copy = avatar.copy()
 
     copy.save("gempic.png", "PNG")
     await bot.send_file(ctx.message.channel, "gempic.png")
