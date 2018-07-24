@@ -208,9 +208,13 @@ async def shrug(ctx):
     img1.paste(face_3, dest, face_3)
     
     print("part 4")
-
-    processed = BytesIO()
+    
+    dataa = await img1.read()
+    print("got image data again")
+    processed = BytesIO(dataa)
+    print("processed")
     img1.save(processed, format="PNG")
+    print("saved")
     await bot.send_file(ctx.message.channel, fp=processed.getvalue(), filename="shrugged.png")
     print("done")
     
