@@ -152,12 +152,11 @@ async def shrug(ctx):
     print("user detected.")
     img1 = Image.open(fp=open("shrug.png", "rb"))
     print("image opened")
-    with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession() as session:
         avatar = await session.get(user.avatar_url_as(format="png"))
         data = await avatar.read()
         av_bytes = BytesIO(data)
         avatar = Image.open(av_bytes)
-
     dest = (155, 70)
     size = avatar.size
     mask = Image.new('L', size, 0)
