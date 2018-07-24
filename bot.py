@@ -250,11 +250,10 @@ async def gem(ctx):
 
     img1.paste(face_1, dest, face_1)
 
-    #im = Image.alpha_composite(img1, gem)
     print("processed")
-    img1.save("gempic.png", "PNG")
+    img1.save("ggem.png", "PNG")
     print("saved")
-    await bot.send_file(ctx.message.channel, "gempic.png")
+    await bot.send_file(ctx.message.channel, "ggem.png")
     print("done")
     
 @bot.event
