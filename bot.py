@@ -204,10 +204,7 @@ async def gem(ctx):
         async with session.get(user.avatar_url) as avatar:
             data = await avatar.read()
             av_bytes = BytesIO(data)
-            avatarr = Image.open(av_bytes)
-            #buffer = BytesIO(await avatar.read())
-            copy = avatarr.copy()
-            
+            avatarr = Image.open(fp=open(av_bytes, "rb"))
     dest = (5, 5)
     size = gem.size
     mask = Image.new('L', size, 0)
@@ -219,9 +216,9 @@ async def gem(ctx):
     face_1 = av.resize((78, 78), Image.LANCZOS)
     face_1 = face_1.rotate(15, expand=True)
 
-    copy.paste(face_1, dest, face_1)
+    avatarr.paste(face_1, dest, face_1)
 
-    copy.save("gempic.png", "PNG")
+    avatarr.save("gempic.png", "PNG")
     await bot.send_file(ctx.message.channel, "gempic.png")
     
 @bot.event
