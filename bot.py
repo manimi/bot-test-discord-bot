@@ -225,12 +225,12 @@ async def gem(ctx):
     avv = ImageOps.fit(gem, maskk.size, centering=(0.5, 0.5))
     avv.putalpha(maskk)
 
-    face_1 = avv.resize((78, 78), Image.LANCZOS)
+    face_1 = avv.resize((30, 30), Image.LANCZOS)
     #face_1 = face_1.rotate(15, expand=True)
     
     background.paste(av)
     
-    background.paste(face_1, destt)
+    av.paste(face_1, destt)
     
     print("pasted")
     
