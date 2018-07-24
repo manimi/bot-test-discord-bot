@@ -146,9 +146,8 @@ async def image(ctx):
     await bot.send_file(ctx.message.channel, "pic.png")
     
 @bot.command(pass_context=True)
-async def shrug(ctx, user : discord.Member = None):
-    if user is None:
-        user = ctx.message.author
+async def shrug(ctx):
+    user = ctx.message.author
     img1 = Image.open(fp=open("shrug.png", "rb"))
     with aiohttp.ClientSession() as session:
         avatar = await session.get(user.avatar_url_as(format="png"))
