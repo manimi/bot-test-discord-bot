@@ -222,6 +222,8 @@ async def gem(ctx):
     print("accessing command")
     user = ctx.message.author
     print("user detected.")
+    gem = Image.open(fp=open("gem.png", "rb"))
+    print("image opened")
     async with aiohttp.ClientSession() as session:
         print("got session")
         async with session.get(user.avatar_url) as avatar:
@@ -232,11 +234,25 @@ async def gem(ctx):
             print("read data")
             img1 = Image.open(av_bytes)
             print("open the avatar data")
-    gem = Image.open(fp=open("gem.png", "rb"))
-    print("image opened")
-    im = Image.alpha_composite(img1, gem)
+            
+    dest = (155, 70)
+    size = avatar.size
+    mask = Image.new('L', size, 0)
+    draw = ImageDraw.Draw(mask)
+    draw.ellipse((0, 0) + size, fill=255)
+    av = ImageOps.fit(gem, mask.size, centering=(0.5, 0.5))
+    av.putalpha(mask)
+    
+    print("part 1")
+
+    face_1 = av.resize((78, 78), Image.LANCZOS)
+    face_1 = face_1.rotate(15, expand=True)
+
+    img1.paste(face_1, dest, face_1)
+
+    #im = Image.alpha_composite(img1, gem)
     print("processed")
-    im.save("gempic.png", "PNG")
+    img1.save("gempic.png", "PNG")
     print("saved")
     await bot.send_file(ctx.message.channel, "gempic.png")
     print("done")
