@@ -129,27 +129,7 @@ async def srb2image(ctx, url):
             buffer = BytesIO(await resp.read())
 
     await bot.send_file(ctx.message.channel, fp=buffer, filename=urlname)
-    
-@bot.command(pass_context=True)
-async def scramble(ctx):
-    async with session.post("http://watchout4snakes.com/wo4snakes/Random/RandomWord") as post:
-        assert isinstance(post, aiohttp.ClientResponse)
-        word = await post.read()
-    word = word.decode()
-    scrambled = random.sample(word, len(word))
-    scrambled = ''.join(scrambled)
-    await bot.say("The word scramble is: `{scrambled}`! You have 30 seconds to solve...")
-
-    def check(m):
-        return m.content == word and m.channel == ctx.message.channel
-
-    try:
-        msg = await bot.wait_for_message(timeout=30, content="message", check=check)
-        if msg:
-            await bot.say("Nice job! {msg.author.name} solved the scramble! The word was `{word}`!")
-    except asyncio.TimeoutError:
-        await bot.say("Oops! Nobody solved it. The word was `{word}`!")
-        
+  
 @bot.command(pass_context=True)
 async def image(ctx):
     width = random.randint(1, 500)
@@ -163,8 +143,9 @@ async def image(ctx):
     colour = str(red) + ", " + str(green) + ", " + str(blue)
 
     img = Image.new('RGB', (width, height), (red, green, blue))
+    file = BytesIO(img)
     #img.save(str(name) + '.jpg')
-    await bot.send_file(ctx.message.channel, fp=img, filename='picture.png')
+    await bot.send_file(ctx.message.channel, fp=file, filename='picture.png')
     
 @bot.event
 async def on_command_error(error, ctx):
