@@ -201,7 +201,7 @@ async def gem(ctx):
     user = ctx.message.author
     gem = Image.open(fp=open("gem.png", "rb"))
     async with aiohttp.ClientSession() as session:
-        async with session.get(user.avatar_url_as(format="png")) as avatar:
+        async with session.get(user.avatar_url) as avatar:
             data = await avatar.read()
             av_bytes = BytesIO(data)
             avatar = Image.open(av_bytes)
