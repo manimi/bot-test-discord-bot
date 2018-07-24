@@ -145,7 +145,7 @@ async def image(ctx):
     img.save("pic.png", "PNG")
     await bot.send_file(ctx.message.channel, "pic.png")
     
-@bot.command()
+@bot.command(pass_context=True)
 async def shrug(ctx, user : discord.Member = None):
     if user is None:
         user = ctx.message.author
