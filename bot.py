@@ -219,7 +219,7 @@ async def gem(ctx):
     
     destt = (5, 5)
     sizee = gem.size
-    maskk = Image.new('L', size, 0)
+    maskk = Image.new('L', sizee, 0)
     draww = ImageDraw.Draw(maskk)
     draww.ellipse((0, 0) + sizee, fill=255)
     avv = ImageOps.fit(gem, maskk.size, centering=(0.5, 0.5))
@@ -230,7 +230,7 @@ async def gem(ctx):
     
     background.paste(av)
     
-    background.paste(face_1, destt, maskk)
+    background.paste(face_1, destt)
 
     background.save("gempic.png", "PNG")
     await bot.send_file(ctx.message.channel, "gempic.png")
