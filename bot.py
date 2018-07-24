@@ -198,27 +198,33 @@ async def shrug(ctx):
     
 @bot.command(pass_context=True)
 async def gem(ctx):
+    red = random.randint(1, 255)
+    blue = random.randint(1, 255)
+    green = random.randint(1, 255)
     user = ctx.message.author
     gem = Image.open(fp=open("gem.png", "rb"))
+    background = Image.new('RGB', (gem.width, gem.height), (red, green, blue))
     async with aiohttp.ClientSession() as session:
         async with session.get(user.avatar_url) as avatar:
             data = await avatar.read()
             av_bytes = BytesIO(data)
-            avatarr = Image.open(fp=open(av_bytes, "rb"))
+            avatarr = Image.open(av_bytes)
     dest = (5, 5)
-    size = gem.size
+    size = avatarr.size
     mask = Image.new('L', size, 0)
     draw = ImageDraw.Draw(mask)
     draw.ellipse((0, 0) + size, fill=255)
-    av = ImageOps.fit(gem, mask.size, centering=(0.5, 0.5))
+    av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
     av.putalpha(mask)
 
     face_1 = av.resize((78, 78), Image.LANCZOS)
     face_1 = face_1.rotate(15, expand=True)
+    
+    background.paste(av)
 
-    avatarr.paste(face_1, dest, face_1)
+    background.paste(gem, dest)
 
-    avatarr.save("gempic.png", "PNG")
+    background.save("gempic.png", "PNG")
     await bot.send_file(ctx.message.channel, "gempic.png")
     
 @bot.event
