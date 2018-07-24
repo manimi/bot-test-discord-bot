@@ -200,28 +200,28 @@ async def shrug(ctx):
 async def gem(ctx):
     user = ctx.message.author
     gem = Image.open(fp=open("gem.png", "rb"))
-    copy = gem.copy()
     async with aiohttp.ClientSession() as session:
         async with session.get(user.avatar_url) as avatar:
-            #data = await avatar.read()
-            #av_bytes = BytesIO(data)
-            #avatar = Image.open(av_bytes)
-            buffer = BytesIO(await avatar.read())
+            data = await avatar.read()
+            av_bytes = BytesIO(data)
+            avatarr = Image.open(av_bytes)
+            #buffer = BytesIO(await avatar.read())
+            copy = avatarr.copy()
             
-    #dest = (5, 5)
-    #size = copy.size
-    #mask = Image.new('L', size, 0)
-    #draw = ImageDraw.Draw(mask)
-    #draw.ellipse((0, 0) + size, fill=255)
-    #av = ImageOps.fit(copy, mask.size, centering=(0.5, 0.5))
-    #av.putalpha(mask)
+    dest = (5, 5)
+    size = gem.size
+    mask = Image.new('L', size, 0)
+    draw = ImageDraw.Draw(mask)
+    draw.ellipse((0, 0) + size, fill=255)
+    av = ImageOps.fit(gem, mask.size, centering=(0.5, 0.5))
+    av.putalpha(mask)
 
-    #face_1 = av.resize((78, 78), Image.LANCZOS)
-    #face_1 = face_1.rotate(15, expand=True)
+    face_1 = av.resize((78, 78), Image.LANCZOS)
+    face_1 = face_1.rotate(15, expand=True)
 
-    #gem.paste(face_1, dest, face_1)
+    copy.paste(face_1, dest, face_1)
 
-    buffer.save("gempic.png", "PNG")
+    copy.save("gempic.png", "PNG")
     await bot.send_file(ctx.message.channel, "gempic.png")
     
 @bot.event
