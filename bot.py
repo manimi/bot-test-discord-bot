@@ -230,7 +230,7 @@ async def gem(ctx):
     
     background.paste(av)
     
-    background.paste(avv, destt)
+    background.paste(face_1, destt)
     
     print("pasted")
     
