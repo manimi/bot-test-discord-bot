@@ -137,16 +137,13 @@ async def image(ctx):
     red = random.randint(1, 255)
     blue = random.randint(1, 255)
     green = random.randint(1, 255)
-    name = random.randint(1, 999999999999)
 
     size = str(width) + ", " + str(height)
     colour = str(red) + ", " + str(green) + ", " + str(blue)
 
     img = Image.new('RGB', (width, height), (red, green, blue))
-    img.save(str(name) + '.png')
-    f = Image.open(str(name) + '.png')
-    #file = f.load()
-    await bot.send_file(ctx.message.channel, fp=f, filename='picture.png')
+    img.save("pic.png", "PNG")
+    await bot.send_file(ctx.message.channel, "pic.png")
     
 @bot.event
 async def on_command_error(error, ctx):
