@@ -232,7 +232,7 @@ async def gem(ctx):
     
     print("pasted")
     
-    im = Image.alpha_composite(background, gem)
+    im = Image.alpha_composite(gem, gem)
     
     print("alpha composited.")
     
