@@ -236,7 +236,7 @@ async def gem(ctx):
             print("open the avatar data")
             
     dest = (155, 70)
-    size = avatar.size
+    size = gem.size
     mask = Image.new('L', size, 0)
     draw = ImageDraw.Draw(mask)
     draw.ellipse((0, 0) + size, fill=255)
