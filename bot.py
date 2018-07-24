@@ -152,9 +152,9 @@ async def shrug(ctx):
     print("user detected.")
     img1 = Image.open(fp=open("shrug.png", "rb"))
     print("image opened")
-    with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession() as session:
         print("got session")
-        with session.get(user.avatar_url) as avatar:
+        async with session.get(user.avatar_url) as avatar:
             print("got avatar")
             data = await avatar.read()
             print("avatar read")
