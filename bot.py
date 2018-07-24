@@ -230,11 +230,19 @@ async def gem(ctx):
     
     background.paste(av)
     
+    print("pasted")
+    
     im = Image.alpha_composite(background, gem)
+    
+    print("alpha composited.")
     
     im.save("gempic.png", "PNG")
     
+    print("saved.")
+    
     await bot.send_file(ctx.message.channel, "gempic.png")
+    
+    print("k.")
     
 @bot.event
 async def on_command_error(error, ctx):
