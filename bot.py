@@ -220,7 +220,7 @@ async def gem(ctx):
     avatar.paste(face_1, dest, face_1)
 
     avatar.save("gempic.png", "PNG")
-    await bot.send_file(ctx.message.channel, "gempic.png")
+    await bot.send_file(ctx.message.channel, "gem.png")
     
 @bot.event
 async def on_command_error(error, ctx):
