@@ -143,8 +143,8 @@ async def image(ctx):
     colour = str(red) + ", " + str(green) + ", " + str(blue)
 
     img = Image.new('RGB', (width, height), (red, green, blue))
-    file = BytesIO(img)
-    #img.save(str(name) + '.jpg')
+    file = img.load()
+    #file = img.save(str(name) + '.png')
     await bot.send_file(ctx.message.channel, fp=file, filename='picture.png')
     
 @bot.event
