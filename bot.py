@@ -14,7 +14,7 @@ import github
 import json
 import aiohttp
 from io import BytesIO
-from PIL import Image
+from PIL import Image, ImageDraw
 from oauth2client.service_account import ServiceAccountCredentials
 
 #GETTING API KEYS FROM HEROKU
@@ -151,22 +151,20 @@ async def scramble(ctx):
         await bot.say("Oops! Nobody solved it. The word was `{word}`!")
         
 @bot.command(pass_context=True)
-async def longcat(ctx, match):
-    body_length = min(len(match.group(1)), 20)
-    width = cat_tail.width + body_length * cat_body.width + cat_head.width
-    im = Image.new('RGBA', (width, cat_head.height), 0x00000000)
-	
-    im.paste(cat_tail, (0, 0))
-    x = cat_tail.width
-    for i in range(body_length):
-	    im.paste(cat_body, (x, 0))
-	    x += cat_body.width
-    im.paste(cat_head, (x, 0))
-	
-    buf = io.BytesIO()
-    im.save(buf, 'png')
-    buf.seek(0)
-    await bot.send_file(ctx.message.channel, fp=discord.File(buf, match.group(0) + '.png'))
+async def image(ctx):
+    width = random.randint(1, 500)
+    height = random.randint(1,500)
+    red = random.randint(1, 255)
+    blue = random.randint(1, 255)
+    green = random.randint(1, 255)
+    name = random.randint(1, 999999999999)
+
+    size = str(width) + ", " + str(height)
+    colour = str(red) + ", " + str(green) + ", " + str(blue)
+
+    img = Image.new('RGB', (width, height), (red, green, blue))
+    #img.save(str(name) + '.jpg')
+    await bot.send_file(ctx.message.channel, fp=img, filename='picture.png')
     
 @bot.event
 async def on_command_error(error, ctx):
