@@ -196,6 +196,7 @@ async def shrug(ctx):
 
     processed = BytesIO()
     img1.save(processed, format="PNG")
+    print("h")
     await bot.send_file(ctx.message.channel, fp=processed.getvalue(), filename="shrugged.png")
     
 @bot.event
