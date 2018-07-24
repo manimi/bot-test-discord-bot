@@ -217,7 +217,7 @@ async def gem(ctx):
     av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
     av.putalpha(mask)
     
-    destt = (5, 5)
+    destt = (25, 25)
     sizee = gem.size
     maskk = Image.new('L', sizee, 0)
     draww = ImageDraw.Draw(maskk)
@@ -228,15 +228,13 @@ async def gem(ctx):
     face_1 = avv.resize((78, 78), Image.LANCZOS)
     #face_1 = face_1.rotate(15, expand=True)
     
-    #background.paste(av)
+    background.paste(av)
     
-    #print("pasted")
+    background.paste(avv, destt)
     
-    im = Image.blend(im1=background, im2=av, alpha=0.5)
+    print("pasted")
     
-    print("composited.")
-    
-    im.save("gempic.png", "PNG")
+    background.save("gempic.png", "PNG")
     
     print("saved.")
     
