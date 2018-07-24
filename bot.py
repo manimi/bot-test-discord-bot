@@ -14,6 +14,7 @@ import github
 import json
 import aiohttp
 from io import BytesIO
+from PIL import Image
 from oauth2client.service_account import ServiceAccountCredentials
 
 #GETTING API KEYS FROM HEROKU
@@ -135,20 +136,37 @@ async def scramble(ctx):
         assert isinstance(post, aiohttp.ClientResponse)
         word = await post.read()
     word = word.decode()
-    print(word)
     scrambled = random.sample(word, len(word))
     scrambled = ''.join(scrambled)
-    await bot.say(f"The word scramble is: `{scrambled}`! You have 30 seconds to solve...")
+    await bot.say("The word scramble is: `{scrambled}`! You have 30 seconds to solve...")
 
     def check(m):
-        return m.content == word and m.channel == ctx.channel
+        return m.content == word and m.channel == ctx.message.channel
 
     try:
         msg = await bot.wait_for_message(timeout=30, content="message", check=check)
         if msg:
-            await bot.say(f"Nice job! {msg.author.name} solved the scramble! The word was `{word}`!")
+            await bot.say("Nice job! {msg.author.name} solved the scramble! The word was `{word}`!")
     except asyncio.TimeoutError:
-        await bot.say(f"Oops! Nobody solved it. The word was `{word}`!")
+        await bot.say("Oops! Nobody solved it. The word was `{word}`!")
+        
+@bot.command(pass_context=True)
+async def longcat(ctx, match):
+    body_length = min(len(match.group(1)), 20)
+    width = cat_tail.width + body_length * cat_body.width + cat_head.width
+    im = Image.new('RGBA', (width, cat_head.height), 0x00000000)
+	
+    im.paste(cat_tail, (0, 0))
+    x = cat_tail.width
+    for i in range(body_length):
+	    im.paste(cat_body, (x, 0))
+	    x += cat_body.width
+    im.paste(cat_head, (x, 0))
+	
+    buf = io.BytesIO()
+    im.save(buf, 'png')
+    buf.seek(0)
+    await bot.send_file(ctx.message.channel, fp=discord.File(buf, match.group(0) + '.png'))
     
 @bot.event
 async def on_command_error(error, ctx):
