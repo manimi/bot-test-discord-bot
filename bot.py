@@ -147,8 +147,11 @@ async def image(ctx):
     
 @bot.command(pass_context=True)
 async def shrug(ctx):
+    print("accessing command")
     user = ctx.message.author
+    print("user detected.")
     img1 = Image.open(fp=open("shrug.png", "rb"))
+    print("image opened")
     with aiohttp.ClientSession() as session:
         avatar = await session.get(user.avatar_url_as(format="png"))
         data = await avatar.read()
@@ -162,6 +165,8 @@ async def shrug(ctx):
     draw.ellipse((0, 0) + size, fill=255)
     av = ImageOps.fit(avatar, mask.size, centering=(0.5, 0.5))
     av.putalpha(mask)
+    
+    print("part 1")
 
     face_1 = av.resize((78, 78), Image.LANCZOS)
     face_1 = face_1.rotate(15, expand=True)
@@ -175,6 +180,8 @@ async def shrug(ctx):
     draw.ellipse((0, 0) + size, fill=255)
     av = ImageOps.fit(avatar, mask.size, centering=(0.5, 0.5))
     av.putalpha(mask)
+    
+    print("part 2")
 
     face_2 = av.resize((36, 36), Image.LANCZOS)
     face_2 = face_2.rotate(-4, expand=True)
@@ -188,16 +195,20 @@ async def shrug(ctx):
     draw.ellipse((0, 0) + size, fill=255)
     av = ImageOps.fit(avatar, mask.size, centering=(0.5, 0.5))
     av.putalpha(mask)
+    
+    print("part 3")
 
     face_3 = av.resize((40, 40), Image.LANCZOS)
     face_3 = face_3.rotate(5, expand=True)
 
     img1.paste(face_3, dest, face_3)
+    
+    print("part 4")
 
     processed = BytesIO()
     img1.save(processed, format="PNG")
-    print("h")
     await bot.send_file(ctx.message.channel, fp=processed.getvalue(), filename="shrugged.png")
+    print("done")
     
 @bot.event
 async def on_command_error(error, ctx):
