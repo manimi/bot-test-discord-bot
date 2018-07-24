@@ -209,23 +209,24 @@ async def gem(ctx):
             data = await avatar.read()
             av_bytes = BytesIO(data)
             avatarr = Image.open(av_bytes)
-    dest = (5, 5)
-    size = avatarr.size
-    mask = Image.new('L', size, 0)
-    draw = ImageDraw.Draw(mask)
-    draw.ellipse((0, 0) + size, fill=255)
-    av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
-    av.putalpha(mask)
+    #dest = (5, 5)
+    #size = avatarr.size
+    #mask = Image.new('L', size, 0)
+    #draw = ImageDraw.Draw(mask)
+    #draw.ellipse((0, 0) + size, fill=255)
+    #av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
+    #av.putalpha(mask)
 
     face_1 = av.resize((78, 78), Image.LANCZOS)
     face_1 = face_1.rotate(15, expand=True)
     
-    background.paste(av)
+    background.paste(avatarr)
+    
+    background.width = 512
+    background.height = 128
 
-    background.paste(gem, dest)
-
-    background.save("gempic.png", "PNG")
-    await bot.send_file(ctx.message.channel, "gempic.png")
+    background.save("expand.png", "PNG")
+    await bot.send_file(ctx.message.channel, "expand.png")
     
 @bot.event
 async def on_command_error(error, ctx):
