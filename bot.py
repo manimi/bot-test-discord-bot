@@ -203,9 +203,10 @@ async def gem(ctx):
     copy = gem.copy()
     async with aiohttp.ClientSession() as session:
         async with session.get(user.avatar_url) as avatar:
-            data = await avatar.read()
-            av_bytes = BytesIO(data)
-            avatar = Image.open(av_bytes)
+            #data = await avatar.read()
+            #av_bytes = BytesIO(data)
+            #avatar = Image.open(av_bytes)
+            buffer = BytesIO(await avatar.read())
             
     #dest = (5, 5)
     #size = copy.size
@@ -220,8 +221,8 @@ async def gem(ctx):
 
     #gem.paste(face_1, dest, face_1)
 
-    avatar.save("gempic.png", "PNG")
-    await bot.send_file(ctx.message.channel, "gempic.png")
+    #avatar.save("gempic.png", "PNG")
+    await bot.send_file(ctx.message.channel, fp=buffer, filename="gempic.png")
     
 @bot.event
 async def on_command_error(error, ctx):
