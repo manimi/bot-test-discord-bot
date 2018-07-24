@@ -228,15 +228,15 @@ async def gem(ctx):
     face_1 = avv.resize((78, 78), Image.LANCZOS)
     #face_1 = face_1.rotate(15, expand=True)
     
-    background.paste(av)
+    #background.paste(av)
     
-    print("pasted")
+    #print("pasted")
     
-    Image.composite(av, gem, background)
+    im = Image.blend(im1=background, im2=av, alpha=0.5)
     
     print("composited.")
     
-    background.save("gempic.png", "PNG")
+    im.save("gempic.png", "PNG")
     
     print("saved.")
     
