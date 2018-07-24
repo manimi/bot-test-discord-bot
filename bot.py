@@ -196,7 +196,7 @@ async def shrug(ctx):
 
     processed = BytesIO()
     img1.save(processed, format="PNG")
-    await bot.send_file(ctx.message.channel, fp=discord.File(fp=processed.getvalue(), filename="shrugged.png"))
+    await bot.send_file(ctx.message.channel, fp=processed.getvalue(), filename="shrugged.png")
     
 @bot.event
 async def on_command_error(error, ctx):
