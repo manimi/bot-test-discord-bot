@@ -217,6 +217,30 @@ async def shrug(ctx):
     await bot.send_file(ctx.message.channel, "shrg.png")
     print("done")
     
+@bot.command(pass_context=True)
+async def gem(ctx):
+    print("accessing command")
+    user = ctx.message.author
+    print("user detected.")
+    async with aiohttp.ClientSession() as session:
+        print("got session")
+        async with session.get(user.avatar_url) as avatar:
+            print("got avatar")
+            data = await avatar.read()
+            print("avatar read")
+            av_bytes = BytesIO(data)
+            print("read data")
+            img1 = Image.open(av_bytes)
+            print("open the avatar data")
+    gem = Image.open(fp=open("gem.png", "rb"))
+    print("image opened")
+    im = Image.alpha_composite(img1, gem)
+    print("processed")
+    im.save("gempic.png", "PNG")
+    print("saved")
+    await bot.send_file(ctx.message.channel, "gempic.png")
+    print("done")
+    
 @bot.event
 async def on_command_error(error, ctx):
     channel = ctx.message.channel
