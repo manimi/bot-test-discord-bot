@@ -232,7 +232,7 @@ async def gem(ctx):
             print("avatar read")
             av_bytes = BytesIO(data)
             print("read data")
-            img1 = Image.open(av_bytes)
+            avatar = Image.open(av_bytes)
             print("open the avatar data")
             
     dest = (155, 70)
@@ -248,12 +248,12 @@ async def gem(ctx):
     face_1 = av.resize((78, 78), Image.LANCZOS)
     face_1 = face_1.rotate(15, expand=True)
 
-    img1.paste(face_1, dest, face_1)
+    avatar.paste(face_1, dest, face_1)
 
     print("processed")
-    img1.save("ggem.png", "PNG")
+    avatar.save("gempic.png", "PNG")
     print("saved")
-    await bot.send_file(ctx.message.channel, "ggem.png")
+    await bot.send_file(ctx.message.channel, "gempic.png")
     print("done")
     
 @bot.event
