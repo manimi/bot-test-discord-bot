@@ -147,21 +147,13 @@ async def image(ctx):
     
 @bot.command(pass_context=True)
 async def shrug(ctx):
-    print("accessing command")
     user = ctx.message.author
-    print("user detected.")
     img1 = Image.open(fp=open("shrug.png", "rb"))
-    print("image opened")
     async with aiohttp.ClientSession() as session:
-        print("got session")
         async with session.get(user.avatar_url) as avatar:
-            print("got avatar")
             data = await avatar.read()
-            print("avatar read")
             av_bytes = BytesIO(data)
-            print("read data")
             avatar = Image.open(av_bytes)
-            print("open the avatar data")
     dest = (155, 70)
     size = avatar.size
     mask = Image.new('L', size, 0)
@@ -169,8 +161,6 @@ async def shrug(ctx):
     draw.ellipse((0, 0) + size, fill=255)
     av = ImageOps.fit(avatar, mask.size, centering=(0.5, 0.5))
     av.putalpha(mask)
-    
-    print("part 1")
 
     face_1 = av.resize((78, 78), Image.LANCZOS)
     face_1 = face_1.rotate(15, expand=True)
@@ -184,8 +174,6 @@ async def shrug(ctx):
     draw.ellipse((0, 0) + size, fill=255)
     av = ImageOps.fit(avatar, mask.size, centering=(0.5, 0.5))
     av.putalpha(mask)
-    
-    print("part 2")
 
     face_2 = av.resize((36, 36), Image.LANCZOS)
     face_2 = face_2.rotate(-4, expand=True)
@@ -199,62 +187,40 @@ async def shrug(ctx):
     draw.ellipse((0, 0) + size, fill=255)
     av = ImageOps.fit(avatar, mask.size, centering=(0.5, 0.5))
     av.putalpha(mask)
-    
-    print("part 3")
 
     face_3 = av.resize((40, 40), Image.LANCZOS)
     face_3 = face_3.rotate(5, expand=True)
 
     img1.paste(face_3, dest, face_3)
     
-    print("part 4")
-    
-    #processed = BytesIO()
-    print("processed")
-    #img1.save(processed, format="PNG")
     img1.save("shrg.png", "PNG")
-    print("saved")
     await bot.send_file(ctx.message.channel, "shrg.png")
-    print("done")
     
 @bot.command(pass_context=True)
 async def gem(ctx):
-    print("accessing command")
     user = ctx.message.author
-    print("user detected.")
     gem = Image.open(fp=open("gem.png", "rb"))
-    print("image opened")
     async with aiohttp.ClientSession() as session:
-        print("got session")
         async with session.get(user.avatar_url) as avatar:
-            print("got avatar")
             data = await avatar.read()
-            print("avatar read")
             av_bytes = BytesIO(data)
-            print("read data")
             avatar = Image.open(av_bytes)
-            print("open the avatar data")
             
-    dest = (155, 70)
-    size = avatar.size
-    mask = Image.new('L', size, 0)
-    draw = ImageDraw.Draw(mask)
-    draw.ellipse((0, 0) + size, fill=255)
-    av = ImageOps.fit(avatar, mask.size, centering=(0.5, 0.5))
-    av.putalpha(mask)
-    
-    print("part 1")
+    dest = (5, 5)
+    #size = gem.size
+    #mask = Image.new('L', size, 0)
+    #draw = ImageDraw.Draw(mask)
+    #draw.ellipse((0, 0) + size, fill=255)
+    #av = ImageOps.fit(gem, mask.size, centering=(0.5, 0.5))
+    #av.putalpha(mask)
 
-    face_1 = av.resize((78, 78), Image.LANCZOS)
-    face_1 = face_1.rotate(15, expand=True)
+    #face_1 = av.resize((78, 78), Image.LANCZOS)
+    #face_1 = face_1.rotate(15, expand=True)
 
-    gem.paste(face_1, dest, face_1)
+    gem.paste(avatar, dest, avatar)
 
-    print("processed")
     gem.save("gempic.png", "PNG")
-    print("saved")
     await bot.send_file(ctx.message.channel, "gempic.png")
-    print("done")
     
 @bot.event
 async def on_command_error(error, ctx):
