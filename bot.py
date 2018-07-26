@@ -204,6 +204,7 @@ async def gem(ctx):
     user = ctx.message.author
     gem = Image.open(fp=open("gem.png", "rb"))
     gemm = Image.open("gemm.png")
+    print("opened alt gem")
     background = Image.new('RGB', (gem.width, gem.height), (red, green, blue))
     async with aiohttp.ClientSession() as session:
         async with session.get(user.avatar_url) as avatar:
@@ -231,17 +232,21 @@ async def gem(ctx):
     
     backgroundd = Image.new("RGBA", avatarr.size)
     
+    print("alt bg")
+    
     backgroundd.paste(av, (0,0), av)
+    
+    print("paste av")
     
     backgroundd.paste(gemm, (0,0), gemm)
     
-    #Image.alpha_composite(background, gem).save('gempic.png')
+    print("paste alt gem")
     
-    print("pasted")
+    #Image.alpha_composite(background, gem).save('gempic.png')
     
     backgroundd.save("gempic.png", "PNG")
     
-    print("saved.")
+    print("save alt bg")
     
     await bot.send_file(ctx.message.channel, "gempic.png")
     
