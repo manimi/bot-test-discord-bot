@@ -217,7 +217,7 @@ async def gem(ctx):
     av = ImageOps.fit(avatarr, mask.size, centering=(0.5, 0.5))
     av.putalpha(mask)
     
-    destt = (45, 85)
+    destt = (45, 92)
     sizee = gem.size
     maskk = Image.new('L', sizee, 0)
     draww = ImageDraw.Draw(maskk)
