@@ -234,7 +234,7 @@ async def gem(ctx):
     
     print("alt bg")
     
-    backgroundd.paste(av, (0,0))
+    backgroundd.paste(avatarr, (0,0), avatarr)
     
     print("paste av")
     
