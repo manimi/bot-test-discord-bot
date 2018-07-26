@@ -228,15 +228,17 @@ async def gem(ctx):
     face_1 = avv.resize((30, 30), Image.LANCZOS)
     #face_1 = face_1.rotate(15, expand=True)
     
-    #background.paste(av)
+    face_1.convert('RGBA')
     
-    #background.paste(face_1, destt, face_1)
+    background.paste(av)
     
-    Image.alpha_composite(background, gem).save('gempic.png')
+    background.paste(face_1, destt, face_1)
+    
+    #Image.alpha_composite(background, gem).save('gempic.png')
     
     print("pasted")
     
-    #background.save("gempic.png", "PNG")
+    background.save("gempic.png", "PNG")
     
     print("saved.")
     
