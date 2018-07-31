@@ -256,7 +256,7 @@ async def gem(ctx):
 async def profile(ctx):
     await bot.send_typing(ctx.message.channel)
 
-    eTitle = '{} \'s Profile'.format(ctx.message.author.display_name)
+    eTitle = 'Profile'
     eDesc = ''
 
     em = discord.Embed(title=eTitle,url=ctx.message.author.avatar_url.replace('webp','png'),description=eDesc,colour=discord.Colour.orange())
@@ -270,7 +270,7 @@ async def profile(ctx):
     em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
     sn = await bot.say(embed=em)
     
-    t = str(sn)
+    t = sn.embeds[0].title
     await bot.say(t)
     print(t)
 
