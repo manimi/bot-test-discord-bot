@@ -251,7 +251,29 @@ async def gem(ctx):
     await bot.send_file(ctx.message.channel, "gempic.png")
     
     print("k.")
+
+@bot.command(pass_context=True)
+async def profile(ctx):
+    await bot.send_typing(ctx.message.channel)
+
+    eTitle = '{} \'s Profile'.format(ctx.message.author.display_name)
+    eDesc = ''
+
+    em = discord.Embed(title=eTitle,url=ctx.message.author.avatar_url.replace('webp','png'),description=eDesc,colour=discord.Colour.orange())
+    em.set_author(name="{}".format(ctx.message.author.name), url=ctx.message.author.avatar_url.replace('webp','png'), icon_url=ctx.message.author.avatar_url.replace('webp','png'))
+    em.add_field(name="XP :sparkles:", value='1', inline=True)
+    em.add_field(name="Level :star2:", value='2', inline=True)
+    em.add_field(name="Credits :moneybag:", value='3', inline=True)
+    em.add_field(name="Inventory :shopping_bags:", value='- h -', inline=True)
+    em.add_field(name="Holds :handbag:", value='g', inline=True)
+    em.set_thumbnail(url=ctx.message.author.avatar_url.replace('webp','png'))
+    em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
+    await bot.say(embed=em)
     
+    t = str(ctx.message.embeds)
+    await bot.say(t)
+    print(t)
+
 @bot.event
 async def on_command_error(error, ctx):
     channel = ctx.message.channel
