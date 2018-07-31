@@ -268,9 +268,9 @@ async def profile(ctx):
     em.add_field(name="Holds :handbag:", value='g', inline=True)
     em.set_thumbnail(url=ctx.message.author.avatar_url.replace('webp','png'))
     em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
-    await bot.say(embed=em)
+    sn = await bot.say(embed=em)
     
-    t = str(ctx.message.embeds)
+    t = str(sn)
     await bot.say(t)
     print(t)
 
