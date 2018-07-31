@@ -270,7 +270,7 @@ async def profile(ctx):
     em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
     sn = await bot.say(embed=em)
     
-    t = sn.embeds[0].title
+    t = str(sn.embeds)
     await bot.say(t)
     print(t)
 
