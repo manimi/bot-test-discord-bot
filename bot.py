@@ -270,9 +270,8 @@ async def profile(ctx):
     em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
     sn = await bot.say(embed=em)
     
-    t = str(sn.embeds['title'])
-    await bot.say(t)
-    print(t)
+    if (len(sn.embeds) == 1):
+    print("yay")
 
 @bot.event
 async def on_command_error(error, ctx):
