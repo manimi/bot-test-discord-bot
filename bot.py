@@ -271,7 +271,7 @@ async def profile(ctx):
     sn = await bot.say(embed=em)
     
     if (len(sn.embeds) == 1):
-        print(sn.embeds[1].title)
+        print(sn.embeds[0]['title'])
 
 @bot.event
 async def on_command_error(error, ctx):
