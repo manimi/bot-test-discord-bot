@@ -298,11 +298,17 @@ async def disconnect(ctx, id):
 @bot.command(pass_context=True)
 async def find(ctx, content):
     counter = []
+    print("counter installed")
     for message in bot.logs_from(ctx.message.channel, limit=500):
-        if message.author == bot.user:
+        print("logs from all messages")
+        if content in message:
+            print("this message contains the following content")
             counter.append( message )
+            print("add this message to the list")
     msg = random.choice(counter)
+    print("pick a random message that fits")
     await bot.say('{}'.format(msg.content))
+    print("say it")
         
 
 @bot.event
