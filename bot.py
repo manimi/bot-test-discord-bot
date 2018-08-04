@@ -296,19 +296,19 @@ async def disconnect(ctx, id):
         await voice.disconnect()
         
 @bot.command(pass_context=True)
-async def find(ctx, content : str):
-    counter = []
+async def find(ctx):
+    counter = 0
     print("counter installed")
-    for message in bot.messages:
+    async for message in bot.logs_from(ctx.message.channel):
         print("gets all messages")
-        if ((message.channel == ctx.message.channel)&(content in message)):
+        if (message.author == bot.user):
             print("this message contains the following content and in this channel")
-            counter.append( message )
-            print("add this message to the list")
-    msg = random.choice(counter)
-    print("pick a random message that fits")
-    await bot.say('{}'.format(msg.content))
-    print("say it")
+            counter += 1
+            print(str(counter))
+            #msg = random.choice(counter)
+            #print("pick a random message that fits")
+            #await bot.say('{}'.format(msg.content))
+            #print("say it")
         
 
 @bot.event
