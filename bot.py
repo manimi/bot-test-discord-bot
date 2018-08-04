@@ -306,7 +306,8 @@ async def find(ctx):
     print("done searching")
     msg = random.choice(counter)
     print("pick a random message that fits")
-    await bot.say('{}'.format(msg.content))
+    print(msg.content)
+    await bot.say(msg.content)
         
 
 @bot.event
