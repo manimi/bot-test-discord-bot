@@ -300,14 +300,14 @@ async def find(ctx):
     counter = []
     print("counter installed")
     async for message in bot.logs_from(ctx.message.channel):
-        if (message.author == bot.user):
+        if (message.author == bot.user)&("updated" in message.content):
             print("this message contains the following content and in this channel")
-            counter.append( message )
+            counter.append( message.content )
     print("done searching")
-    msg = random.choice(counter)
+    c = random.choice(counter)
     print("pick a random message that fits")
-    print(msg.content)
-    await bot.say(msg.content)
+    print(str(c))
+    await bot.say(c)
         
 
 @bot.event
