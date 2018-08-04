@@ -296,10 +296,10 @@ async def disconnect(ctx, id):
         await voice.disconnect()
         
 @bot.command(pass_context=True)
-async def find(ctx, content):
+async def find(ctx, content : str):
     counter = []
     print("counter installed")
-    async for message in bot.logs_from(ctx.message.channel, limit=500):
+    async for message in bot.logs_from(ctx.message.channel, limit=60):
         print("logs from all messages")
         if content in message:
             print("this message contains the following content")
