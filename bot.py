@@ -301,13 +301,14 @@ async def find(ctx, con : str):
     print("counter installed")
     async for message in bot.logs_from(ctx.message.channel):
         if (con in message.content):
-            print("this message contains the following content and in this channel")
+            print(message.id)
             counter.append( message.id )
     print("done searching")
     c = random.choice(counter)
-    print("pick a random message that fits")
+    print("pick a random id message that fits")
     msg = bot.get_message(ctx.message.channel, c)
-    await bot.say('```By {}:```\n{}'.format(msg.author.name, msg.content))
+    print("get the message from id")
+    await bot.say(msg.content)
         
 
 @bot.event
