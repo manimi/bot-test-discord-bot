@@ -296,18 +296,18 @@ async def disconnect(ctx, id):
         await voice.disconnect()
         
 @bot.command(pass_context=True)
-async def find(ctx):
+async def find(ctx, con : str):
     counter = []
     print("counter installed")
     async for message in bot.logs_from(ctx.message.channel):
-        if (message.author == bot.user)&("updated" in message.content):
+        if (con in message.content):
             print("this message contains the following content and in this channel")
-            counter.append( message.content )
+            counter.append( message.id )
     print("done searching")
     c = random.choice(counter)
     print("pick a random message that fits")
-    print(str(c))
-    await bot.say(c)
+    msg = bot.get_message(ctx.message.channel, c)
+    await bot.say('```By {}:```\n{}'.format(msg.author.name, msg.content))
         
 
 @bot.event
