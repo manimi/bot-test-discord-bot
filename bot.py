@@ -299,10 +299,10 @@ async def disconnect(ctx, id):
 async def find(ctx, content : str):
     counter = []
     print("counter installed")
-    async for message in bot.logs_from(ctx.message.channel, limit=60):
-        print("logs from all messages")
-        if content in message:
-            print("this message contains the following content")
+    for message in bot.messages:
+        print("gets all messages")
+        if ((message.channel == ctx.message.channel)&(content in message)):
+            print("this message contains the following content and in this channel")
             counter.append( message )
             print("add this message to the list")
     msg = random.choice(counter)
