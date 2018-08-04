@@ -272,6 +272,28 @@ async def profile(ctx):
     
     if (len(sn.embeds) == 1):
         print(sn.embeds[0]['title'])
+        
+@bot.command(pass_context=True)
+async def playfile(ctx, file):
+    for server in bot.servers:
+        if (ctx.message.author.id == '224185471826132992'):
+            voice = bot.voice_client_in(server)
+            player = voice.create_ffmpeg_player(file)
+            player.start()
+            return None
+
+@bot.command(pass_context=True)
+async def connect(ctx, id):
+    if (ctx.message.author.id == '224185471826132992'):
+        channel = bot.get_channel(id)
+        await bot.join_voice_channel(channel)
+
+@bot.command(pass_context=True)
+async def disconnect(ctx, id):
+    if (ctx.message.author.id == '224185471826132992'):
+        server = bot.get_server(id)
+        voice = bot.voice_client_in(server)
+        await voice.disconnect()
 
 @bot.event
 async def on_command_error(error, ctx):
