@@ -300,9 +300,9 @@ async def find(ctx, con : str):
     counter = []
     #print("counter installed")
     async for message in bot.logs_from(ctx.message.channel):
-        if (con in message.content):
+        if (con in message.content)&(message != ctx.message):
             #print(message.author.name)
-            counter.append( [message.author.name,message.content,message.timestamp,message.author.avatar_url] )
+            counter.append( [message.author.name,message.content,str(message.timestamp),message.author.avatar_url] )
     #print("done searching")
     c = random.choice(counter)
     #print("pick a random item that fits")
