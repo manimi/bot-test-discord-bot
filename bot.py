@@ -294,6 +294,16 @@ async def disconnect(ctx, id):
         server = bot.get_server(id)
         voice = bot.voice_client_in(server)
         await voice.disconnect()
+        
+@bot.command(pass_context=True)
+async def find(ctx, content):
+    counter = []
+    for message in bot.logs_from(ctx.message.channel, limit=500):
+        if message.author == bot.user:
+            counter.append( message )
+    msg = random.choice(counter)
+    await bot.say('{}'.format(msg.content))
+        
 
 @bot.event
 async def on_command_error(error, ctx):
