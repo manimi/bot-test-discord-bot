@@ -135,10 +135,10 @@ async def srb2(ctx, option=None):
     if (option is None):
         await bot.say("Use dd!srb2 status")
     elif ((option == "status")|(option == "STATUS")|(option == "Status")):
-        r = requests.get('https://www.srb2.org')
+        r = requests.get('https://srb2.org')
         json_data = json.loads(r.text)
         status_server = json_data['status']
-        await bot.say('Status is {}'.format(status_server))
+        await bot.say('{}'.format(json_data))
     else:
         await bot.say("Not available option!")
   
