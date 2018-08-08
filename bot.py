@@ -16,6 +16,7 @@ import aiohttp
 from io import BytesIO
 from PIL import Image, ImageDraw, ImageOps
 from oauth2client.service_account import ServiceAccountCredentials
+from bs4 import BeautifulSoup
 
 #GETTING API KEYS FROM HEROKU
 #api = os.environ["RIOT_KEY"]
@@ -141,7 +142,20 @@ async def srb2(ctx, option=None):
         await bot.say('{}'.format(json_data))
     else:
         await bot.say("Not available option!")
-  
+        
+@bot.command(pass_context=True)
+async def test(ctx):
+    link = "https://www.architecture.com/FindAnArchitect/FAAPractices.aspx?display=50"
+
+    html = requests.get(link).text
+
+    soup = BeautifulSoup(html, "lxml")
+    res = soup.findAll("article", {"class": "listingItem"})
+    for r in res:
+        print("Company Name: " + r.find('a').text)
+        print("Address: " + r.find("div", {'class': 'address'}).text)
+        print("Website: " + r.find_all("div", {'class': 'pageMeta-item'})[3].text)
+
 @bot.command(pass_context=True)
 async def image(ctx):
     width = random.randint(1, 500)
