@@ -129,6 +129,18 @@ async def srb2image(ctx, url):
             buffer = BytesIO(await resp.read())
 
     await bot.send_file(ctx.message.channel, fp=buffer, filename=urlname)
+    
+@bot.command(pass_context=True)
+async def srb2(ctx, option=None):
+    if (option is None):
+        await bot.say("Use dd!srb2 status")
+    elif ((option == "status")|(option == "STATUS")|(option == "Status")):
+        r = requests.get('https://www.srb2.org')
+        json_data = json.loads(r.text)
+        status_server = json_data['status']
+        await bot.say('Status is {}'.format(status_server))
+    else:
+        await bot.say("Not available option!")
   
 @bot.command(pass_context=True)
 async def image(ctx):
