@@ -366,7 +366,7 @@ async def ultimate(ctx, url : str=None, name : str=None, desc : str=None):
                 theimage = Image.open(buffer)
 
         txt = Image.new('RGBA', img.size, (255,255,255,0))
-        fnt = ImageFont.truetype('Pillow/Tests/fonts/FreeMono.ttf', 40)
+        fnt = ImageFont.truetype('Smash.ttc', 40)
         d = ImageDraw.Draw(txt)
         
         d.text((100,100), name, font=fnt, fill=(255,255,255,128))
