@@ -346,11 +346,16 @@ async def find(ctx, con : str):
     await bot.send_message(ctx.message.channel,embed=em)
     
 @bot.command(pass_context=True)
-async def attachment(ctx):
-    if (len(ctx.message.attachments) > 0):
-        await bot.send_file(ctx.message.channel,ctx.message.attachments[0])
+async def ultimate(ctx, url : str=None, text : str=None):
+    if ((url is None)|(text is None)):
+        await bot.say("Please type an url of an image and the additional text.")
     else:
-        await bot.say("Please attach an image to your message.")
+        urlname = 'ultimateleak.png'
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as resp:
+                buffer = BytesIO(await resp.read())
+
+        await bot.send_file(ctx.message.channel, fp=buffer, filename=urlname, content=text)
 
 @bot.event
 async def on_command_error(error, ctx):
