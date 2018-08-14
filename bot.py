@@ -14,7 +14,7 @@ import github
 import json
 import aiohttp
 from io import BytesIO
-from PIL import Image, ImageDraw, ImageOps
+from PIL import Image, ImageDraw, ImageOps, ImageFont
 from oauth2client.service_account import ServiceAccountCredentials
 from bs4 import BeautifulSoup
 
@@ -346,16 +346,36 @@ async def find(ctx, con : str):
     await bot.send_message(ctx.message.channel,embed=em)
     
 @bot.command(pass_context=True)
-async def ultimate(ctx, url : str=None, text : str=None):
-    if ((url is None)|(text is None)):
-        await bot.say("Please type an url of an image and the additional text.")
+async def ultimate(ctx, url : str=None, name : str=None, desc : str=None):
+    if ((url is None)|(name is None)|(desc is None)):
+        await bot.say("d!ultimate <url of an image> <name> <description>")
     else:
-        urlname = 'ultimateleak.png'
+        width = 500
+        height = 500
+        red = random.randint(1, 255)
+        blue = random.randint(1, 255)
+        green = random.randint(1, 255)
+
+        size = str(width) + ", " + str(height)
+        colour = str(red) + ", " + str(green) + ", " + str(blue)
+
+        img = Image.new('RGBA', (width, height), (red, green, blue))
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as resp:
                 buffer = BytesIO(await resp.read())
+                theimage = Image.open(buffer)
 
-        await bot.send_file(ctx.message.channel, fp=buffer, filename=urlname, content=text)
+        txt = Image.new('RGBA', img.size, (255,255,255,0))
+        fnt = ImageFont.truetype('Pillow/Tests/fonts/FreeMono.ttf', 40)
+        d = ImageDraw.Draw(txt)
+        
+        d.text((100,100), name, font=fnt, fill=(255,255,255,128))
+        d.text((100,160), desc, font=fnt, fill=(255,255,255,255))
+        
+        img.paste(theimage, (0,0))
+        img.paste(txt, (0,0))
+        img.save("ultimateleak.png", "PNG")
+        await bot.send_file(ctx.message.channel, "ultimateleak.png")
 
 @bot.event
 async def on_command_error(error, ctx):
