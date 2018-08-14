@@ -350,7 +350,7 @@ async def attachment(ctx):
     if (len(ctx.message.attachments) > 0):
         await bot.send_file(ctx.message.channel,ctx.message.attachments[0])
     else:
-        await bot.say("Please attach an image to your message.)
+        await bot.say("Please attach an image to your message.")
 
 @bot.event
 async def on_command_error(error, ctx):
