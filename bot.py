@@ -344,6 +344,13 @@ async def find(ctx, con : str):
     em.set_author(name="{}".format(c[0]), url=c[3].replace('webp','png'), icon_url=c[3].replace('webp','png'))
     em.set_footer(text='Requested by: {}'.format(ctx.message.author.name))
     await bot.send_message(ctx.message.channel,embed=em)
+    
+@bot.command(pass_context=True)
+async def attachment(ctx):
+    if (len(ctx.message.attachments) > 0):
+        await bot.send_file(ctx.message.channel,ctx.message.attachments[0])
+    else:
+        await bot.say("Please attach an image to your message.)
 
 @bot.event
 async def on_command_error(error, ctx):
