@@ -366,13 +366,15 @@ async def ultimate(ctx, url : str=None, name : str=None, desc : str=None):
                 theimage = Image.open(buffer)
 
         txt = Image.new('RGBA', img.size, (255,255,255,0))
-        fnt = ImageFont.truetype('Smash.ttc', 40)
+        fnt = ImageFont.truetype('Smash.ttc', 60)
         d = ImageDraw.Draw(txt)
         
-        d.text((100,100), name, font=fnt, fill=(255,255,255,128))
-        d.text((100,160), desc, font=fnt, fill=(255,255,255,255))
+        d.text((250,100), name, font=fnt, fill=(255,255,255,128))
+        d.text((250,160), desc, font=fnt, fill=(255,255,255,255))
         
-        img.paste(theimage, (0,0), theimage)
+        ttheimage = theimage.resize((300, 300), Image.LANCZOS)
+        
+        img.paste(ttheimage, (50,100), ttheimage)
         img.paste(txt, (0,0), txt)
         img.save("ultimateleak.png", "PNG")
         await bot.send_file(ctx.message.channel, "ultimateleak.png")
