@@ -372,8 +372,8 @@ async def ultimate(ctx, url : str=None, name : str=None, desc : str=None):
         d.text((100,100), name, font=fnt, fill=(255,255,255,128))
         d.text((100,160), desc, font=fnt, fill=(255,255,255,255))
         
-        img.paste(theimage, (0,0))
-        img.paste(txt, (0,0))
+        img.paste(theimage, (0,0), theimage)
+        img.paste(txt, (0,0), txt)
         img.save("ultimateleak.png", "PNG")
         await bot.send_file(ctx.message.channel, "ultimateleak.png")
 
