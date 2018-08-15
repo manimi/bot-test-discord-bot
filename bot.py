@@ -359,7 +359,7 @@ async def ultimate(ctx, url : str=None, name : str=None, desc : str=None):
         size = str(width) + ", " + str(height)
         colour = str(red) + ", " + str(green) + ", " + str(blue)
 
-        img = Image.new('RGBA', (width, height), (red, green, blue))
+        img = Image.new('RGBA', (width, height), discord.Colour.orange())
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as resp:
                 buffer = BytesIO(await resp.read())
